@@ -1,0 +1,22 @@
+<idea-plugin version="2">
+    <name>GridGain abbreviation rules</name>
+    <description>This plugin checks for incorrect usage of abbreviated names</description>
+    <version>1.0</version>
+    <vendor>GridGain Inc.</vendor>
+    <idea-version since-build="8000"/>
+
+    <application-components>
+    </application-components>
+
+    <project-components>
+        <!-- Add your project components here -->
+    </project-components>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <inspectionToolProvider implementation="org.gridgain.inspection.abbrev.AbbreviationInspectionProvider"/>
+    </extensions>
+</idea-plugin>
