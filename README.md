@@ -3,7 +3,7 @@
 <a href="https://ignite.apache.org/"><img src="src/main/resources/META-INF/pluginIcon.svg" hspace="20"/></a>
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
-![Java](https://img.shields.io/badge/Java-17+-orange?logo=openjdk)
+![Java](https://img.shields.io/badge/Java-17-orange?logo=openjdk)
 ![Gradle](https://img.shields.io/badge/Gradle-8.5+-blue?logo=gradle)
 ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ_IDEA-2022.2+-orange?logo=intellij-idea)
 
