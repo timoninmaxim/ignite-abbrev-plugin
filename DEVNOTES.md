@@ -1,32 +1,33 @@
 * [Prerequisites](#prerequisites)
-* [Quick Start](#quick-start)
+* [Building plugin](#building-plugin)
 * [Building Ignite](#building-ignite)
 * [Building Ignite](#test-in-ide)
 ***
 
 ## Prerequisites
-- Java 17
-- Gradle 8.5+
-- IntelliJ IDEA 2022.2+ (For development)
+Before you begin, ensure you have:
+- **Java 17**
+- **Gradle 8.5** or higher
+- **IntelliJ IDEA 2022.2** or higher (for development)
 ***
 
-## Building Ignite Abbreviation plugin
-Build: the plugin and prepares the ZIP archive for testing and deployment.
+## Building Plugin
+Builds the plugin and generates a ZIP archive for deployment:
 ```shell
-./gradlew clean build -x test -x integrationTest
+./gradlew clean buildPlugin
 ```
-The archive will be located in build/distributions
+The output plugin archive will be created at: `build/distributions/ignite-abbrev-plugin-<version>.zip`
 ***
 
-## Test in IDE
-Run the IDE instance using the currently selected IntelliJ Platform with the built plugin loaded:
+## Testing in IDE
+Launches an IntelliJ IDEA instance with the plugin installed:
 ```shell
 ./gradlew runIde
 ```
 ***
 
-## Other
-To see full list of available commands with info:
+## Available Commands
+View all available Gradle tasks with description:
 ```shell
 ./gradlew tasks
 ```
