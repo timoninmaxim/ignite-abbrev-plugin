@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 ![Java](https://img.shields.io/badge/Java-17-orange?logo=openjdk)
 ![Gradle](https://img.shields.io/badge/Gradle-8.5+-blue?logo=gradle)
-![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ_IDEA-2022.2+-orange?logo=intellij-idea)
+![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ_IDEA-2022.3+-orange?logo=intellij-idea)
 
 IntelliJ Idea plugin that simplifies development with Apache Ignite [coding guidelines](https://cwiki.apache.org/confluence/display/IGNITE/Coding+Guidelines).
 

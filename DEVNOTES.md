@@ -8,7 +8,7 @@
 Before you begin, ensure you have:
 - **Java 17**
 - **Gradle 8.5** or higher
-- **IntelliJ IDEA 2022.2** or higher (for development)
+- **IntelliJ IDEA 2022.3** or higher (for development)
 ***
 
 ## Building plugin
