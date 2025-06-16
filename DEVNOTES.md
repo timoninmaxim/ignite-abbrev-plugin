@@ -1,7 +1,7 @@
 * [Prerequisites](#prerequisites)
 * [Building plugin](#building-plugin)
-* [Building Ignite](#building-ignite)
-* [Building Ignite](#test-in-ide)
+* [Testing in IDE](#testing-in-ide)
+* [Available commands](#available-commands)
 ***
 
 ## Prerequisites
@@ -11,7 +11,7 @@ Before you begin, ensure you have:
 - **IntelliJ IDEA 2022.2** or higher (for development)
 ***
 
-## Building Plugin
+## Building plugin
 Builds the plugin and generates a ZIP archive for deployment:
 ```shell
 ./gradlew clean buildPlugin
@@ -26,7 +26,7 @@ Launches an IntelliJ IDEA instance with the plugin installed:
 ```
 ***
 
-## Available Commands
+## Available commands
 View all available Gradle tasks with description:
 ```shell
 ./gradlew tasks
