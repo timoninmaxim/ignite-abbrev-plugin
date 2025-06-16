@@ -47,6 +47,8 @@ dependencies {
 }
 
 intellijPlatform {
+    buildSearchableOptions = false
+
     pluginConfiguration {
         id = 'org.apache.ignite.idea'
         name = 'Apache Ignite abbreviation plugin'
