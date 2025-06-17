@@ -33,10 +33,11 @@ IntelliJ Idea plugin that simplifies development with Apache Ignite [coding guid
 2) Install manually in IntelliJ IDEA following the [instructions](https://www.jetbrains.com/help/idea/managing-plugins.html#install_plugin_from_disk)
 
 ## Reporting issues
-If you experience bugs or weird behavior please create an issue on the [bug tracker](https://github.com/dspavlov/ignite-abbrev-plugin/issues).
+If you experience bugs or weird behavior please create an issue on the [bug tracker](https://issues.apache.org/jira)
+or send it to [user@ignite.apache.org](mailto:user@ignite.apache.org).
 
 ## Plugin Version Compatibility
-The latest release can be found on [releases page](https://github.com/dspavlov/ignite-abbrev-plugin/releases).
+The latest release can be found on [releases page](https://issues.apache.org/jira).
 See [tags page](https://github.com/dspavlov/ignite-abbrev-plugin/tags) for full list of all available versions.
 
 | Plugin Version | Minimal IntelliJ IDEA Version |
