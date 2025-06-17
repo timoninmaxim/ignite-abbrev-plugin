@@ -34,7 +34,7 @@ IntelliJ Idea plugin that simplifies development with Apache Ignite [coding guid
 
 ## Reporting issues
 If you experience bugs or weird behavior please create an issue on the [bug tracker](https://issues.apache.org/jira)
-or send it to [user@ignite.apache.org](mailto:user@ignite.apache.org).
+or send it to [dev@ignite.apache.org](mailto:dev@ignite.apache.org).
 
 ## Plugin Version Compatibility
 The latest release can be found on [releases page](https://issues.apache.org/jira).

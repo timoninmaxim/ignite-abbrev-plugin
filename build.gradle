@@ -62,7 +62,7 @@ intellijPlatform {
 
         vendor {
             name = 'Apache Ignite'
-            email = 'user@ignite.apache.org'
+            email = 'dev@ignite.apache.org'
             url = 'https://github.com/dspavlov/ignite-abbrev-plugin'
         }
     }
