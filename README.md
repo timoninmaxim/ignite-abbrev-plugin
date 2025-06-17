@@ -12,6 +12,7 @@ IntelliJ Idea plugin that simplifies development with Apache Ignite [coding guid
 ## Features
 
 - **Code Style Validation**:
+  - Abbreviation rules. Full list of abbreviations to enforce can be found in `src/main/resources/abbreviation.properties`
   - Naming conventions (classes, methods, variables, getters/setters)
   - Annotation placement
   - Brace placement
@@ -30,3 +31,15 @@ IntelliJ Idea plugin that simplifies development with Apache Ignite [coding guid
 
 1) Download the plugin (`.zip` file) from [releases page](https://github.com/dspavlov/ignite-abbrev-plugin/releases)
 2) Install manually in IntelliJ IDEA following the [instructions](https://www.jetbrains.com/help/idea/managing-plugins.html#install_plugin_from_disk)
+
+## Reporting issues
+If you experience bugs or weird behavior please create an issue on the [bug tracker](https://github.com/dspavlov/ignite-abbrev-plugin/issues).
+
+## Plugin Version Compatibility
+The latest release can be found on [releases page](https://github.com/dspavlov/ignite-abbrev-plugin/releases).
+See [tags page](https://github.com/dspavlov/ignite-abbrev-plugin/tags) for full list of all available versions.
+
+| Plugin Version | Minimal IntelliJ IDEA Version |
+|----------------|-------------------------------|
+| 2.6.0 - 3.0.1  | 2013.1                        |
+| 4.0.0          | 2022.3                        |
