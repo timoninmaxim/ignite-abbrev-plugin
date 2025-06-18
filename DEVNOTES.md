@@ -37,4 +37,4 @@ View all available Gradle tasks with description:
 ## Release instructions
 All product releases are available on the [Releases page](https://github.com/dspavlov/ignite-abbrev-plugin/releases).
 
-To create a new release follow GitHub’s official guide: [Managing Releases in a Repository](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release).
+To create a new release, follow GitHub’s official guide: [Managing Releases in a Repository](https://docs.github.com/repositories/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release).
