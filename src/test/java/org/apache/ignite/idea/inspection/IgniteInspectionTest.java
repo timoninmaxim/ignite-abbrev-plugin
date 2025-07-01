@@ -22,10 +22,8 @@ import com.intellij.codeInsight.daemon.impl.HighlightInfo;
 import com.intellij.codeInsight.intention.IntentionAction;
 import com.intellij.codeInspection.InspectionProfileEntry;
 import com.intellij.testFramework.fixtures.LightJavaCodeInsightFixtureTestCase;
-import org.apache.ignite.idea.inspection.abbrev.IgniteAbbreviationInspection;
-import org.apache.ignite.idea.inspection.comment.IgniteCommentInspection;
-import org.junit.Test;
 
+/** Tests Apache Ignite inspections. */
 public class IgniteInspectionTest extends LightJavaCodeInsightFixtureTestCase {
     /** {@inheritDoc} */
     @Override protected void setUp() throws Exception {
@@ -41,8 +39,7 @@ public class IgniteInspectionTest extends LightJavaCodeInsightFixtureTestCase {
         return "src/test/resources/inspection";
     }
 
-    /** */
-    @Test
+    /** Tests {@link IgniteEmptyLineInspection}. */
     public void testEmptyLineInspection() {
         checkQuickFix("EmptyLine1", generateFixAllIntentionNameByInspection(new IgniteEmptyLineInspection()));
         checkQuickFix("EmptyLine2", generateFixAllIntentionNameByInspection(new IgniteEmptyLineInspection()));
