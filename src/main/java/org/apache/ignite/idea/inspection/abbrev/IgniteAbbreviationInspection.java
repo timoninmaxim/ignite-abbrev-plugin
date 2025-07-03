@@ -142,6 +142,11 @@ public class IgniteAbbreviationInspection extends BaseJavaLocalInspectionTool {
         }
 
         /** {@inheritDoc} */
+        @Override public boolean startInWriteAction() {
+            return false;
+        }
+
+        /** {@inheritDoc} */
         public void applyFix(@NotNull Project project, @NotNull ProblemDescriptor descr) {
             PsiElement element = descr.getPsiElement().getParent();
 
