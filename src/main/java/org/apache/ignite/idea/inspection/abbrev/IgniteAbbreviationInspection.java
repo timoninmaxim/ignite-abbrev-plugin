@@ -118,7 +118,7 @@ public class IgniteAbbreviationInspection extends BaseJavaLocalInspectionTool {
     /**
      * Renames variable to a given name.
      */
-    private class RenameToFix implements LocalQuickFix {
+    private class RenameToFix implements LocalQuickFix, BatchQuickFix {
         /** New proposed variable name. */
         private String name;
 
@@ -137,13 +137,19 @@ public class IgniteAbbreviationInspection extends BaseJavaLocalInspectionTool {
         }
 
         /** {@inheritDoc} */
-        @NotNull public String getFamilyName() {
-            return "";
+        @Override public String getFamilyName() {
+            return "Use abbreviation";
         }
 
         /** {@inheritDoc} */
         @Override public boolean startInWriteAction() {
             return false;
+        }
+
+        /** {@inheritDoc} */
+        @Override public void applyFix(@NotNull Project project, CommonProblemDescriptor[] descriptors,
+            @NotNull List<PsiElement> psiElementsToIgnore, @Nullable Runnable refreshViews) {
+            Arrays.stream(descriptors).forEach(descriptor -> descriptor.getFixes()[0].applyFix(project, descriptor));
         }
 
         /** {@inheritDoc} */
