@@ -18,7 +18,7 @@
 package org.apache.ignite.idea.inspection.abbrev;
 
 import com.intellij.codeInspection.*;
-import com.intellij.openapi.components.ServiceManager;
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
@@ -26,6 +26,8 @@ import com.intellij.psi.PsiIdentifier;
 import com.intellij.psi.PsiNamedElement;
 import com.intellij.refactoring.JavaRefactoringFactory;
 import com.intellij.refactoring.RenameRefactoring;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.plugins.scala.lang.psi.api.ScalaElementVisitor;
 import org.jetbrains.plugins.scala.lang.psi.api.statements.ScValue;
 import org.jetbrains.plugins.scala.lang.psi.api.statements.ScValueDeclaration;
@@ -35,6 +37,7 @@ import org.apache.ignite.idea.util.IgniteUtils;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /** Inspects usages of Ignite abbreviations. */
@@ -91,11 +94,11 @@ public class IgniteScalaAbbreviationInspection extends LocalInspectionTool {
              */
             private void check0(List<String> parts, PsiElement elem) {
                 for (String part : parts) {
-                    IgniteAbbreviationConfig config = ServiceManager.getService(elem.getProject(), IgniteAbbreviationConfig.class);
+                    IgniteAbbreviationConfig cfg = elem.getProject().getService(IgniteAbbreviationConfig.class);
 
-                    if (!abbrExceptions.contains(part) && config.getAbbreviation(part) != null) {
+                    if (!abbrExceptions.contains(part) && cfg.getAbbreviation(part) != null) {
                         holder.registerProblem(elem, "Abbreviation should be used",
-                            new RenameToFix(config.replaceWithAbbreviations(parts)));
+                            new RenameToFix(cfg.replaceWithAbbreviations(parts)));
 
                         return;
                     }
@@ -105,7 +108,10 @@ public class IgniteScalaAbbreviationInspection extends LocalInspectionTool {
     }
 
     /** Rename quick fix. */
-    private static class RenameToFix implements LocalQuickFix {
+    private static class RenameToFix implements LocalQuickFix, BatchQuickFix {
+        /** Logger. */
+        private static final Logger LOG = Logger.getInstance(RenameToFix.class);
+
         /** */
         private final String name;
 
@@ -123,7 +129,36 @@ public class IgniteScalaAbbreviationInspection extends LocalInspectionTool {
 
         /** {@inheritDoc} */
         @Override public String getFamilyName() {
-            return "";
+            return "Use abbreviation";
+        }
+
+        /** {@inheritDoc} */
+        @Override public boolean startInWriteAction() {
+            return false;
+        }
+
+        /** {@inheritDoc} */
+        @Override public void applyFix(@NotNull Project project, CommonProblemDescriptor[] descriptors,
+            @NotNull List<PsiElement> psiElementsToIgnore, @Nullable Runnable refreshViews) {
+            for (CommonProblemDescriptor descriptor : descriptors) {
+                QuickFix[] fixes = descriptor.getFixes();
+
+                if (fixes == null || fixes.length == 0) {
+                    LOG.warn("No fixes found.");
+                    continue;
+                }
+
+                Optional<QuickFix> renameFix = Arrays.stream(fixes)
+                    .filter(RenameToFix.class::isInstance)
+                    .findAny();
+
+                if (renameFix.isEmpty()) {
+                    LOG.warn("No rename fix found.");
+                    continue;
+                }
+
+                renameFix.get().applyFix(project, descriptor);
+            }
         }
 
         /** {@inheritDoc} */
