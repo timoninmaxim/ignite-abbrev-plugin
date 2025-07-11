@@ -149,7 +149,18 @@ public class IgniteAbbreviationInspection extends BaseJavaLocalInspectionTool {
         /** {@inheritDoc} */
         @Override public void applyFix(@NotNull Project project, CommonProblemDescriptor[] descriptors,
             @NotNull List<PsiElement> psiElementsToIgnore, @Nullable Runnable refreshViews) {
-            Arrays.stream(descriptors).forEach(descriptor -> descriptor.getFixes()[0].applyFix(project, descriptor));
+            for (CommonProblemDescriptor descriptor : descriptors) {
+                QuickFix [] fixes = descriptor.getFixes();
+
+                assert fixes != null : "At least one fix must exist.";
+
+                QuickFix fix = Arrays.stream(fixes)
+                    .filter(f -> f instanceof RenameToFix)
+                    .findAny()
+                    .orElseThrow(() -> new AssertionError("At least one RenameToFix must exist."));
+
+                fix.applyFix(project, descriptor);
+            }
         }
 
         /** {@inheritDoc} */
