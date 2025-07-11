@@ -19,6 +19,7 @@ package org.apache.ignite.idea.inspection.abbrev;
 
 import com.intellij.codeInspection.*;
 import com.intellij.openapi.components.*;
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.*;
 import com.intellij.psi.*;
 import com.intellij.refactoring.*;
@@ -119,6 +120,9 @@ public class IgniteAbbreviationInspection extends BaseJavaLocalInspectionTool {
      * Renames variable to a given name.
      */
     private class RenameToFix implements LocalQuickFix, BatchQuickFix {
+        /** Logger. */
+        private static final Logger LOG = Logger.getInstance(RenameToFix.class);
+
         /** New proposed variable name. */
         private String name;
 
@@ -152,15 +156,21 @@ public class IgniteAbbreviationInspection extends BaseJavaLocalInspectionTool {
             for (CommonProblemDescriptor descriptor : descriptors) {
                 QuickFix[] fixes = descriptor.getFixes();
 
-                if (fixes == null || fixes.length == 0)
-                    throw new IllegalStateException("At least one fix must exist.");
+                if (fixes == null || fixes.length == 0) {
+                    LOG.warn("No fixes found.");
+                    continue;
+                }
 
-                QuickFix renameFix = Arrays.stream(fixes)
+                Optional<QuickFix> renameFix = Arrays.stream(fixes)
                     .filter(RenameToFix.class::isInstance)
-                    .findAny()
-                    .orElseThrow(() -> new IllegalStateException("At least one RenameToFix must exist."));
+                    .findAny();
 
-                renameFix.applyFix(project, descriptor);
+                if (renameFix.isEmpty()) {
+                    LOG.warn("No rename fix found.");
+                    continue;
+                }
+
+                renameFix.get().applyFix(project, descriptor);
             }
         }
 
