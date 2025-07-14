@@ -1,0 +1,17 @@
+public class X {
+    int foo;
+
+    /**
+     * @return Foo.
+     */
+    public int getFoo() {
+        return foo;
+    }
+
+    /**
+     * @param foo New foo.
+     */
+    public void setFoo(int foo) {
+        this.foo = foo;
+    }
+}
