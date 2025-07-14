@@ -17,6 +17,7 @@
 
 package org.apache.ignite.idea.intention;
 
+import java.util.Comparator;
 import com.intellij.codeInsight.intention.IntentionAction;
 import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction;
 import com.intellij.openapi.components.ServiceManager;
@@ -38,8 +39,8 @@ import com.intellij.psi.javadoc.PsiDocComment;
 import com.intellij.psi.javadoc.PsiDocToken;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.IncorrectOperationException;
-import org.apache.ignite.idea.IgniteMethodInsertionPointSelector;
 import org.apache.ignite.idea.inspection.abbrev.IgniteAbbreviationConfig;
+import org.apache.ignite.idea.util.IgniteUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -298,4 +299,39 @@ public class IgniteGetterSetterGenerator extends PsiElementBaseIntentionAction i
         });
     }
 
+    /**
+     * Defines the insertion point for new methods.
+     */
+    public static class IgniteMethodInsertionPointSelector {
+        /** Method position comparator. */
+        private static final Comparator<PsiMethod> COMP = Comparator.comparingInt(PsiElement::getStartOffsetInParent);
+
+        /**
+         * Selects the insertion point. New methods
+         * should be added after this point.
+         *
+         * @param psiCls Target class for adding methods.
+         * @return The PSI element, after which to insert new method.
+         */
+        public static @Nullable PsiElement select(PsiClass psiCls) {
+            PsiMethod highestMethod = IgniteUtils.min(
+                COMP,
+                IgniteUtils.min(COMP, psiCls.findMethodsByName("readExternal", false)),
+                IgniteUtils.min(COMP, psiCls.findMethodsByName("writeExternal", false)),
+                IgniteUtils.min(COMP, psiCls.findMethodsByName("hashCode", false)),
+                IgniteUtils.min(COMP, psiCls.findMethodsByName("equals", false)),
+                IgniteUtils.min(COMP, psiCls.findMethodsByName("toString", false)));
+
+            if (highestMethod != null)
+                return highestMethod.getPrevSibling();
+
+            PsiElement rBrace = psiCls.getRBrace();
+
+            if (rBrace != null)
+                return rBrace.getPrevSibling();
+
+            return null;
+        }
+
+    }
 }

@@ -22,8 +22,9 @@ import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiMethod;
 import com.intellij.testFramework.fixtures.LightJavaCodeInsightFixtureTestCase;
+import org.apache.ignite.idea.intention.IgniteGetterSetterGenerator;
 
-/** Tests {@link IgniteMethodInsertionPointSelector}. */
+/** Tests {@link IgniteGetterSetterGenerator.IgniteMethodInsertionPointSelector}. */
 public class IgniteMethodInsertionPointSelectorTest extends LightJavaCodeInsightFixtureTestCase {
     /** */
     private PsiMethod mthd;
@@ -46,7 +47,7 @@ public class IgniteMethodInsertionPointSelectorTest extends LightJavaCodeInsight
             }
             """);
 
-        PsiElement insertionPoint = IgniteMethodInsertionPointSelector.select(psiClass);
+        PsiElement insertionPoint = IgniteGetterSetterGenerator.IgniteMethodInsertionPointSelector.select(psiClass);
 
         PsiMethod toStringMethod = psiClass.findMethodsByName("writeExternal", false)[0];
 
@@ -62,7 +63,7 @@ public class IgniteMethodInsertionPointSelectorTest extends LightJavaCodeInsight
             }
             """);
 
-        PsiElement insertionPoint = IgniteMethodInsertionPointSelector.select(psiClass);
+        PsiElement insertionPoint = IgniteGetterSetterGenerator.IgniteMethodInsertionPointSelector.select(psiClass);
 
         PsiElement rBrace = psiClass.getRBrace();
 
@@ -73,7 +74,7 @@ public class IgniteMethodInsertionPointSelectorTest extends LightJavaCodeInsight
     public void testSelectInsertionPointInEmptyClass() {
         PsiClass psiClass = myFixture.addClass("public class TestClass {}");
 
-        PsiElement insertionPoint = IgniteMethodInsertionPointSelector.select(psiClass);
+        PsiElement insertionPoint = IgniteGetterSetterGenerator.IgniteMethodInsertionPointSelector.select(psiClass);
 
         PsiElement rBrace = psiClass.getRBrace();
 
@@ -87,7 +88,7 @@ public class IgniteMethodInsertionPointSelectorTest extends LightJavaCodeInsight
             public class TestClass {
             """);
 
-        PsiElement insertionPoint = IgniteMethodInsertionPointSelector.select(psiClass);
+        PsiElement insertionPoint = IgniteGetterSetterGenerator.IgniteMethodInsertionPointSelector.select(psiClass);
 
         assertNull(insertionPoint);
     }
