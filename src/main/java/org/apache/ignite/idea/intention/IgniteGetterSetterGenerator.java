@@ -188,7 +188,7 @@ public class IgniteGetterSetterGenerator extends PsiElementBaseIntentionAction i
 
             psiCls.addAfter(
                 codeStyleMan.reformat(psiGetter),
-                IgniteMethodInsertionPointSelector.select(psiCls));
+                select(psiCls));
         }
 
         if (genSetter) {
@@ -215,7 +215,7 @@ public class IgniteGetterSetterGenerator extends PsiElementBaseIntentionAction i
 
                 psiCls.addAfter(
                     codeStyleMan.reformat(psiSetter),
-                    IgniteMethodInsertionPointSelector.select(psiCls));
+                    select(psiCls));
             }
         }
     }
@@ -300,38 +300,31 @@ public class IgniteGetterSetterGenerator extends PsiElementBaseIntentionAction i
     }
 
     /**
-     * Defines the insertion point for new methods.
+     * Selects the insertion point for new methods. New methods
+     * should be added after this point.
+     *
+     * @param psiCls Target class for adding methods.
+     * @return The PSI element, after which to insert new method.
      */
-    public static class IgniteMethodInsertionPointSelector {
-        /** Method position comparator. */
-        private static final Comparator<PsiMethod> COMP = Comparator.comparingInt(PsiElement::getStartOffsetInParent);
+    private static @Nullable PsiElement select(PsiClass psiCls) {
+        Comparator<PsiMethod> comp = Comparator.comparingInt(PsiElement::getStartOffsetInParent);
 
-        /**
-         * Selects the insertion point. New methods
-         * should be added after this point.
-         *
-         * @param psiCls Target class for adding methods.
-         * @return The PSI element, after which to insert new method.
-         */
-        public static @Nullable PsiElement select(PsiClass psiCls) {
-            PsiMethod highestMethod = IgniteUtils.min(
-                COMP,
-                IgniteUtils.min(COMP, psiCls.findMethodsByName("readExternal", false)),
-                IgniteUtils.min(COMP, psiCls.findMethodsByName("writeExternal", false)),
-                IgniteUtils.min(COMP, psiCls.findMethodsByName("hashCode", false)),
-                IgniteUtils.min(COMP, psiCls.findMethodsByName("equals", false)),
-                IgniteUtils.min(COMP, psiCls.findMethodsByName("toString", false)));
+        PsiMethod highestMethod = IgniteUtils.min(
+            comp,
+            IgniteUtils.min(comp, psiCls.findMethodsByName("readExternal", false)),
+            IgniteUtils.min(comp, psiCls.findMethodsByName("writeExternal", false)),
+            IgniteUtils.min(comp, psiCls.findMethodsByName("hashCode", false)),
+            IgniteUtils.min(comp, psiCls.findMethodsByName("equals", false)),
+            IgniteUtils.min(comp, psiCls.findMethodsByName("toString", false)));
 
-            if (highestMethod != null)
-                return highestMethod.getPrevSibling();
+        if (highestMethod != null)
+            return highestMethod.getPrevSibling();
 
-            PsiElement rBrace = psiCls.getRBrace();
+        PsiElement rBrace = psiCls.getRBrace();
 
-            if (rBrace != null)
-                return rBrace.getPrevSibling();
+        if (rBrace != null)
+            return rBrace.getPrevSibling();
 
-            return null;
-        }
-
+        return null;
     }
 }
