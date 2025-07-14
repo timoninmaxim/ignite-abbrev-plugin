@@ -59,6 +59,7 @@ public class IgniteGetterSetterGenerator extends PsiElementBaseIntentionAction i
     private final boolean genSetter;
 
     /** Insertion point selector. */
+    @SafeFieldForPreview
     private final IgniteMethodInsertionPointSelector insPtSel = new IgniteMethodInsertionPointSelector();
 
     /**
