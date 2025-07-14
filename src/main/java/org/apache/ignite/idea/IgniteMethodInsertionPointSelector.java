@@ -28,21 +28,16 @@ import java.util.*;
  */
 public class IgniteMethodInsertionPointSelector {
     /** Method position comparator. */
-    private final Comparator<PsiMethod> COMP = new Comparator<PsiMethod>() {
-        @Override public int compare(PsiMethod o1, PsiMethod o2) {
-            return Integer.valueOf(o1.getStartOffsetInParent()).compareTo(o2.getStartOffsetInParent());
-        }
-    };
+    private static final Comparator<PsiMethod> COMP = Comparator.comparingInt(PsiElement::getStartOffsetInParent);
 
     /**
      * Selects the insertion point. New methods
      * should be added after this point.
      *
      * @param psiCls Target class for adding methods.
-     * @param mtd Added method.
      * @return The PSI element, after which to insert new method.
      */
-    public @Nullable PsiElement select(PsiClass psiCls, PsiMethod mtd) {
+    public static @Nullable PsiElement select(PsiClass psiCls) {
         PsiMethod highestMethod = IgniteUtils.min(
             COMP,
             IgniteUtils.min(COMP, psiCls.findMethodsByName("readExternal", false)),

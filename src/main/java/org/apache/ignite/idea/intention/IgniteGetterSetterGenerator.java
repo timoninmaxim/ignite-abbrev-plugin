@@ -58,10 +58,6 @@ public class IgniteGetterSetterGenerator extends PsiElementBaseIntentionAction i
     /** Generate setter flag. */
     private final boolean genSetter;
 
-    /** Insertion point selector. */
-    @SafeFieldForPreview
-    private final IgniteMethodInsertionPointSelector insPtSel = new IgniteMethodInsertionPointSelector();
-
     /**
      * Default constructor.
      */
@@ -191,7 +187,7 @@ public class IgniteGetterSetterGenerator extends PsiElementBaseIntentionAction i
 
             psiCls.addAfter(
                 codeStyleMan.reformat(psiGetter),
-                insPtSel.select(psiCls, psiGetter));
+                IgniteMethodInsertionPointSelector.select(psiCls));
         }
 
         if (genSetter) {
@@ -218,7 +214,7 @@ public class IgniteGetterSetterGenerator extends PsiElementBaseIntentionAction i
 
                 psiCls.addAfter(
                     codeStyleMan.reformat(psiSetter),
-                    insPtSel.select(psiCls, psiSetter));
+                    IgniteMethodInsertionPointSelector.select(psiCls));
             }
         }
     }

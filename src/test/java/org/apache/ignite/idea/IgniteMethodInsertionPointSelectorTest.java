@@ -26,9 +26,6 @@ import com.intellij.testFramework.fixtures.LightJavaCodeInsightFixtureTestCase;
 /** Tests {@link IgniteMethodInsertionPointSelector}. */
 public class IgniteMethodInsertionPointSelectorTest extends LightJavaCodeInsightFixtureTestCase {
     /** */
-    private final IgniteMethodInsertionPointSelector selector = new IgniteMethodInsertionPointSelector();
-
-    /** */
     private PsiMethod mthd;
 
     /** {@inheritDoc} */
@@ -49,7 +46,7 @@ public class IgniteMethodInsertionPointSelectorTest extends LightJavaCodeInsight
             }
             """);
 
-        PsiElement insertionPoint = selector.select(psiClass, mthd);
+        PsiElement insertionPoint = IgniteMethodInsertionPointSelector.select(psiClass);
 
         PsiMethod toStringMethod = psiClass.findMethodsByName("writeExternal", false)[0];
 
@@ -65,7 +62,7 @@ public class IgniteMethodInsertionPointSelectorTest extends LightJavaCodeInsight
             }
             """);
 
-        PsiElement insertionPoint = selector.select(psiClass, mthd);
+        PsiElement insertionPoint = IgniteMethodInsertionPointSelector.select(psiClass);
 
         PsiElement rBrace = psiClass.getRBrace();
 
@@ -76,7 +73,7 @@ public class IgniteMethodInsertionPointSelectorTest extends LightJavaCodeInsight
     public void testSelectInsertionPointInEmptyClass() {
         PsiClass psiClass = myFixture.addClass("public class TestClass {}");
 
-        PsiElement insertionPoint = selector.select(psiClass, mthd);
+        PsiElement insertionPoint = IgniteMethodInsertionPointSelector.select(psiClass);
 
         PsiElement rBrace = psiClass.getRBrace();
 
@@ -90,7 +87,7 @@ public class IgniteMethodInsertionPointSelectorTest extends LightJavaCodeInsight
             public class TestClass {
             """);
 
-        PsiElement insertionPoint = selector.select(psiClass, mthd);
+        PsiElement insertionPoint = IgniteMethodInsertionPointSelector.select(psiClass);
 
         assertNull(insertionPoint);
     }
