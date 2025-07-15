@@ -33,7 +33,7 @@ import static org.apache.ignite.idea.util.IgniteUtils.*;
  * Inspection that checks variable names for usage of restricted words that
  * need to be abbreviated.
  */
-public class IgniteAbbreviationInspection extends BaseJavaLocalInspectionTool {
+public class IgniteAbbreviationInspection extends AbstractBaseJavaLocalInspectionTool {
     /** {@inheritDoc} */
     @NotNull @Override public String getShortName() {
         return "JavaAbbreviationUsage";

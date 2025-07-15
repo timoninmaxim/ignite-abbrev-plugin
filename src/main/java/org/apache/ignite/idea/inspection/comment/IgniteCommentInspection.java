@@ -17,7 +17,7 @@
 
 package org.apache.ignite.idea.inspection.comment;
 
-import com.intellij.codeInspection.BaseJavaLocalInspectionTool;
+import com.intellij.codeInspection.AbstractBaseJavaLocalInspectionTool;
 import com.intellij.codeInspection.LocalQuickFix;
 import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemsHolder;
@@ -46,7 +46,7 @@ import org.jetbrains.annotations.NotNull;
  * Inspection that searches for uncommented fields, methods,
  * and classes, and displays warnings for them.
  */
-public class IgniteCommentInspection extends BaseJavaLocalInspectionTool {
+public class IgniteCommentInspection extends AbstractBaseJavaLocalInspectionTool {
     /** {@inheritDoc} */
     @NotNull @Override public String getShortName() {
         return "CommentAbsent";
