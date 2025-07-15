@@ -19,7 +19,6 @@ package org.apache.ignite.idea.intention;
 
 import com.intellij.codeInsight.intention.IntentionAction;
 import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction;
-import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.JavaPsiFacade;
@@ -165,7 +164,7 @@ public class IgniteGetterSetterGenerator extends PsiElementBaseIntentionAction i
 
         String docText = psiDocToText(psiFieldDoc).trim();
 
-        IgniteAbbreviationConfig abbreviationConfig = ServiceManager.getService(project, IgniteAbbreviationConfig.class);
+        IgniteAbbreviationConfig abbreviationConfig = project.getService(IgniteAbbreviationConfig.class);
 
         String methodName = methodName(abbreviationConfig, fieldName);
 

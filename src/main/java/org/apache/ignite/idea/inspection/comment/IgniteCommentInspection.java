@@ -21,7 +21,6 @@ import com.intellij.codeInspection.AbstractBaseJavaLocalInspectionTool;
 import com.intellij.codeInspection.LocalQuickFix;
 import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemsHolder;
-import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.JavaElementVisitor;
 import com.intellij.psi.JavaPsiFacade;
@@ -61,8 +60,7 @@ public class IgniteCommentInspection extends AbstractBaseJavaLocalInspectionTool
     @NotNull @Override public PsiElementVisitor buildVisitor(@NotNull final ProblemsHolder holder,
         final boolean isOnTheFly) {
 
-        final IgniteAbbreviationConfig config = ServiceManager.getService(holder.getProject(),
-            IgniteAbbreviationConfig.class);
+        final IgniteAbbreviationConfig config = holder.getProject().getService(IgniteAbbreviationConfig.class);
 
         return new JavaElementVisitor() {
             /** {@inheritDoc} */
