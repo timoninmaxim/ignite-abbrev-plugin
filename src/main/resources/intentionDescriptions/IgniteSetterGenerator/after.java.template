@@ -1,0 +1,10 @@
+public class X {
+    int foo;
+
+    /**
+     * @param foo New foo.
+     */
+    public void foo(int foo) {
+        this.foo = foo;
+    }
+}

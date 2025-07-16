@@ -1,0 +1,10 @@
+public class X {
+    int foo;
+
+    /**
+     * @return Foo.
+     */
+    public int foo() {
+        return foo;
+    }
+}
